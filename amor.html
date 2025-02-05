@@ -34,13 +34,11 @@
             font-size: 18px;
             color: #333;
         }
-        .heart {
+        .floating {
             position: absolute;
-            color: red;
             font-size: 30px;
-            animation: float 5s infinite;
-            left: 50%;
-            top: 100vh;
+            animation: float 5s linear infinite;
+            opacity: 0.8;
         }
         @keyframes float {
             0% { transform: translateY(0) scale(1); opacity: 1; }
@@ -54,7 +52,7 @@
             p {
                 font-size: 16px;
             }
-            .heart {
+            .floating {
                 font-size: 20px;
             }
         }
@@ -65,10 +63,11 @@
         <h1 id="message"></h1>
         <p id="text"></p>
     </div>
+
     <script>
         const message = "💖¡Feliz 14 de febrero, Esmeralda!💖";
-        const textMessage = "Hoy no solo es un día para los enamorados, sino también para celebrar la amistad. Gracias por ser esa persona increíble que siempre tiene una sonrisa y buena vibra para compartir. ¡Te quiero un montón! Que tengas un día lleno de amor y dulces.";
-    
+        const textMessage = "THoy no solo es un día para los enamorados, sino también para celebrar la amistad. Gracias por ser esa persona increíble que siempre tiene una sonrisa y buena vibra para compartir. ¡Te quiero un montón! Que tengas un día lleno de amor y dulces.";
+
         let index = 0;
         function typeMessage(callback) {
             if (index < message.length) {
@@ -79,7 +78,7 @@
                 setTimeout(callback, 1000);
             }
         }
-    
+
         let textIndex = 0;
         function typeText() {
             if (textIndex < textMessage.length) {
@@ -88,8 +87,22 @@
                 setTimeout(typeText, 100);
             }
         }
-    
+
         typeMessage(typeText);
+
+        function crearFlotante() {
+            const emojis = ["💖", "💕", "😍", "💞", "💗", "😘", "❤️"];
+            const floating = document.createElement("div");
+            floating.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+            floating.classList.add("floating");
+            floating.style.left = Math.random() * window.innerWidth + "px";
+            floating.style.top = window.innerHeight + "px";
+            floating.style.animationDuration = (Math.random() * 3 + 3) + "s"; 
+            document.body.appendChild(floating);
+            setTimeout(() => floating.remove(), 5000);
+        }
+
+        setInterval(crearFlotante, 300);
     </script>    
 </body>
 </html>
